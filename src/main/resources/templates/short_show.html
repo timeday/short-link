@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>短链接效果</title>
+</head>
+<body>
+
+<div th:if="${error_message != null}" th:utext="${error_message}"></div>
+<div th:if="${error_message == null}">
+    <div>短链接：<a target="_blank" th:href="${shortLink}" th:utext="${shortLink}"></a></div>
+    <div>目标链接：<a target="_blank" th:href="${targetLink}" th:utext="${targetLink}"></a></div>
+    <div>短链接二维码</div>
+    <img th:src="${qrcode}" style="border: 2px solid #F00;">
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>短链接生成器</title>
+</head>
+<body>
+
+<div>
+    <h3>使用说明：</h3>
+    <pre style="color: #FF0000;">
+        本服务仅用于提供链接转换功能(长链接转换为短链接)。
+        自带生成的二维码为该短链接的二维码，仅适用于App下载链接等固定参数链接地址(参数固定所以整个URL才固定，二维码惟一)。
+        通常单个业务模块的链接地址固定，但参数不固定，此时应只对链接不变部分生成短链接(可以带参数也可以不带参数)，生成后的短链接将自动映射到原链接上，
+        短链接在使用时仍然可以添加参数，但此时业务端应自行生成二维码。
+
+        一个业务（一个链接，不包含参数部分），只需要生成一个短链接，后面可以使用参数，下面为示例：
+        原地址：<a href="http://www.xiaocaojidi.com/copy.html?v=100" target="_blank">http://www.xiaocaojidi.com/copy.html?v=100</a> ，可以带也可以不带参数
+        短链接：<a href="http://t.xg2.cn/owl" target="_blank">http://t.xg2.cn/owl</a> ，该链接地址将生成一个二维码(仅针对该链接本身，如果需要后加参数，需要自行生成二维码，推荐使用Google下的zxing库实现)
+        访问：<a href="http://t.xg2.cn/owl?author=zlikun" target="_blank">http://t.xg2.cn/owl?author=zlikun</a>    重定向：<a href="http://www.xiaocaojidi.com/copy.html?v=100&author=zlikun" target="_blank">http://www.xiaocaojidi.com/copy.html?v=100&author=zlikun</a>
+    </pre>
+</div>
+
+<form action="/short/create" method="post">
+    <input type="hidden" name="token" th:value="${session.token}">
+    目标链接*：<input name="targetLink" placeholder="请输入正确的目标链接地址" size="80"> <br>
+    业务描述*：<input name="remark" placeholder="请输入目标链接描述(业务)" size="80"> <br>
+    录入用户*：<input name="username" placeholder="请输入您的姓名" size="80"> <br>
+    <input type="submit" value="提交并生成二维码">
+</form>
+
+</body>
+</html>
